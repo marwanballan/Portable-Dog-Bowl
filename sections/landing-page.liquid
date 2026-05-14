@@ -1,5 +1,12 @@
 {%- assign product = all_products[section.settings.product_handle] -%}
 {%- assign current_variant = product.selected_or_first_available_variant -%}
+<script>
+  window.__hp = {
+    variantId: {{ current_variant.id | json }},
+    handle: {{ section.settings.product_handle | json }},
+    variants: {{ product.variants | json }}
+  };
+</script>
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="announcement">
