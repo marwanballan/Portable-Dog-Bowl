@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "landing-page",
+      "settings": {
+        "product_handle": "hydropaw-portable-dog-water-bottle"
+      }
+    }
+  },
+  "order": ["main"]
+}

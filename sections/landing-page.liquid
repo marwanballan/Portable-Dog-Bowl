@@ -1,0 +1,324 @@
+{%- assign product = all_products[section.settings.product_handle] -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement">
+  🐾 Free Shipping on Orders Over $35 <span>|</span> 30-Day Returns <span>|</span> 4,800+ Happy Pups &amp; Counting
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">HydroPaw<sup>™</sup></div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="#buy" class="nav-cta">Shop Now →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Vet-Approved • BPA-Free • Leak-Proof</div>
+    <h1>Hydration, <em>Everywhere</em> Your Dog Goes.</h1>
+    <p class="hero-sub">
+      The 2-in-1 portable water bottle designed for happy, healthy walks. One hand. Any trail. Every adventure.
+    </p>
+
+    <div class="pricing-block fade-in">
+      <div class="sale-badge">SALE — 49% OFF</div>
+      <div class="price-was-label">Regular Price</div>
+      <div class="price-was">$34.99</div>
+      <div class="price-now-label">Today's Price</div>
+      <div class="price-now"><sup>$</sup>17.99</div>
+      <div class="price-savings">You save $17.00 — Limited time offer</div>
+      <div class="price-shipping">✓ Free standard shipping · Calculated at checkout</div>
+    </div>
+
+    <div class="color-section fade-in">
+      <label>Color — <strong>{{ product.variants.first.title | default: 'Pink' }}</strong></label>
+      <div class="color-options">
+        {%- if product != blank -%}
+          {%- for variant in product.variants -%}
+            {%- assign btn_class = 'color-btn' -%}
+            {%- if variant.title contains 'Blue' -%}{%- assign btn_class = 'color-btn blue-btn' -%}{%- else -%}{%- assign btn_class = 'color-btn pink-btn' -%}{%- endif -%}
+            <button class="{{ btn_class }}{% if forloop.first %} active{% endif %}"
+                    data-variant-id="{{ variant.id }}"
+                    data-variant-title="{{ variant.title }}">
+              {{ variant.title }}
+            </button>
+          {%- endfor -%}
+        {%- else -%}
+          <button class="color-btn pink-btn active" data-variant-id="">Pink</button>
+          <button class="color-btn pink-btn" data-variant-id="">Pink Print</button>
+          <button class="color-btn blue-btn" data-variant-id="">Blue</button>
+          <button class="color-btn blue-btn" data-variant-id="">Blue Print</button>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <input type="hidden" class="variant-id-input" value="{{ current_variant.id }}">
+
+    <div class="btn-group fade-in">
+      <button class="btn-cart">Add to Cart</button>
+      <button class="btn-buy">Buy It Now</button>
+    </div>
+
+    <div class="hero-trust fade-in">
+      <div class="trust-item"><div class="trust-icon">🔒</div> Secure Checkout</div>
+      <div class="trust-item"><div class="trust-icon">📦</div> Free Returns</div>
+      <div class="trust-item"><div class="trust-icon">⭐</div> 4.9 / 5 Stars</div>
+    </div>
+  </div>
+
+  <div class="hero-visuals fade-in">
+    <div style="position:relative;">
+      <img id="hero-main" class="hero-main-img" src="{{ 'portabledogwaterbowl_info_6.png' | asset_url }}" alt="HydroPaw dog water bottle in use" />
+      <div class="hero-float-card top-left">
+        <span class="float-icon">💧</span>
+        <div>
+          <div>285ml Capacity</div>
+          <div class="float-label">Perfect for any walk</div>
+        </div>
+      </div>
+      <div class="hero-float-card bottom-right">
+        <span class="float-icon">🏆</span>
+        <div>
+          <div>#1 Dog Bottle</div>
+          <div class="float-label">4,800+ 5-star reviews</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-thumbnails">
+      <img class="hero-thumb active" src="{{ 'portabledogwaterbowl_info_6.png' | asset_url }}" alt="thumbnail 1" onclick="setHero(this,'{{ 'portabledogwaterbowl_info_6.png' | asset_url }}')" />
+      <img class="hero-thumb" src="{{ 'Portabledogwaterbottle_info_3.png' | asset_url }}" alt="thumbnail 2" onclick="setHero(this,'{{ 'Portabledogwaterbottle_info_3.png' | asset_url }}')" />
+      <img class="hero-thumb" src="{{ 'Portabledogwaterbottle_info_2.png' | asset_url }}" alt="thumbnail 3" onclick="setHero(this,'{{ 'Portabledogwaterbottle_info_2.png' | asset_url }}')" />
+      <img class="hero-thumb" src="{{ 'inhanced_iamge_info_7.png' | asset_url }}" alt="thumbnail 4" onclick="setHero(this,'{{ 'inhanced_iamge_info_7.png' | asset_url }}')" />
+      <img class="hero-thumb" src="{{ 'portable_image_instructions_enhance_1.jpg' | asset_url }}" alt="thumbnail 5" onclick="setHero(this,'{{ 'portable_image_instructions_enhance_1.jpg' | asset_url }}')" />
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-strip-item"><span class="icon">🚚</span> Free Shipping Over $35</div>
+  <div class="trust-strip-item"><span class="icon">♻️</span> BPA-Free Materials</div>
+  <div class="trust-strip-item"><span class="icon">🐾</span> Vet-Approved Design</div>
+  <div class="trust-strip-item"><span class="icon">↩️</span> 30-Day Free Returns</div>
+  <div class="trust-strip-item"><span class="icon">🔒</span> Secure Payment</div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="text-center">
+    <div class="section-label">Why HydroPaw™</div>
+    <h2 class="section-title">Engineered for Every Walk</h2>
+    <p class="section-sub">Every detail designed with your dog's comfort and your convenience in mind.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card fade-in"><span class="feature-icon">🤚</span><h3>Single-Handed Use</h3><p>Ergonomic sphere shape designed to rest naturally in your palm — no fumbling, no fuss.</p></div>
+    <div class="feature-card fade-in"><span class="feature-icon">💧</span><h3>Zero-Leak Promise</h3><p>Precision-sealed lid means no drips, no spills in your bag or on your hands during walks.</p></div>
+    <div class="feature-card fade-in"><span class="feature-icon">🪶</span><h3>Feather-Light</h3><p>At just 6oz, you'll forget it's in your hand. Lightweight enough for any adventure.</p></div>
+    <div class="feature-card fade-in"><span class="feature-icon">🛡️</span><h3>Durable Materials</h3><p>Food-grade stainless steel body with BPA-free silicone — built to last for years.</p></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-grid">
+    <div class="gallery-text fade-in">
+      <div class="section-label">Simplified Hydration</div>
+      <h3>One Hand. <br/>Every Walk.</h3>
+      <p>Say goodbye to clunky bowls and spill-prone bottles. HydroPaw™ was designed around a single philosophy — hydrating your dog should be effortless.</p>
+      <div class="gallery-bullet"><div class="bullet-dot">✓</div><span><strong>Compact sphere design</strong> — sits perfectly in your palm without gripping</span></div>
+      <div class="gallery-bullet"><div class="bullet-dot">✓</div><span><strong>Pain-free grip</strong> — silicone body absorbs pressure, even on long walks</span></div>
+      <div class="gallery-bullet"><div class="bullet-dot">✓</div><span><strong>Attaches to any leash</strong> — carabiner clip keeps it always within reach</span></div>
+    </div>
+    <div class="gallery-img fade-in">
+      <img src="{{ 'Portabledogwaterbottle_info_1.png' | asset_url }}" alt="HydroPaw features overview" />
+    </div>
+  </div>
+
+  <div class="gallery-row-2">
+    <div class="gallery-img fade-in">
+      <img src="{{ 'Portabledogwaterbottle_info_2.png' | asset_url }}" alt="Dog happily drinking from HydroPaw" />
+    </div>
+    <div class="gallery-text fade-in">
+      <div class="section-label">Dogs Love It</div>
+      <h3>Designed for Their Comfort, Too.</h3>
+      <p>The wide-mouth drinking bowl dispenses just the right amount of water — no mess, no overflow. Your dog drinks comfortably whether you're at the park, on a trail, or after agility training.</p>
+      <div class="gallery-bullet"><div class="bullet-dot">✓</div><span><strong>Wide bowl opening</strong> — easy for small and medium breeds</span></div>
+      <div class="gallery-bullet"><div class="bullet-dot">✓</div><span><strong>Pour-back design</strong> — unused water drains back in, nothing wasted</span></div>
+      <div class="gallery-bullet"><div class="bullet-dot">✓</div><span><strong>Available in 4 colors</strong> — match your dog's personality</span></div>
+    </div>
+  </div>
+
+  <div class="gallery-lifestyle fade-in">
+    <img src="{{ 'portabledogwaterbowl_info_6.png' | asset_url }}" alt="HydroPaw lifestyle shot with dog" />
+    <div class="lifestyle-overlay">
+      <div class="lifestyle-text">
+        <div class="section-label" style="color:var(--blue);">Available in 4 Colors</div>
+        <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.6rem,2.5vw,2.2rem); color:var(--white); margin-bottom:12px;">Adventure-Ready. <em style="font-style:italic; color:var(--blue);">Every Time.</em></h3>
+        <p style="color:rgba(255,255,255,.8); font-size:.92rem; max-width:440px;">Whether it's a morning stroll or a full trail hike, HydroPaw™ keeps up with every dog and every adventure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO USE -->
+<section class="how-to-use">
+  <div class="how-to-use-inner">
+    <div class="how-to-use-img fade-in">
+      <img src="{{ 'portable_image_instructions_enhance_1.jpg' | asset_url }}" alt="How to use HydroPaw silicone bowl" />
+    </div>
+    <div class="fade-in">
+      <div class="section-label">Simple by Design</div>
+      <h2 class="section-title">How to Use the Silicone Bowl</h2>
+      <p class="section-sub" style="margin-bottom:32px;">Four effortless steps — your dog stays hydrated without you breaking stride.</p>
+      <div class="how-to-steps">
+        <div class="how-step"><div class="step-num">01</div><div class="step-body"><h4>Flip up the silicone panel</h4><p>Press the latch and flip the panel outward to form the drinking bowl.</p></div></div>
+        <div class="how-step"><div class="step-num">02</div><div class="step-body"><h4>Pull the lid open and tilt to pour</h4><p>Gently open the inner lid and tilt the bottle — water flows smoothly into the bowl.</p></div></div>
+        <div class="how-step"><div class="step-num">03</div><div class="step-body"><h4>Tilt back to drain remaining water</h4><p>When your dog is done, tilt back — leftover water drains right back in. Nothing wasted.</p></div></div>
+        <div class="how-step"><div class="step-num">04</div><div class="step-body"><h4>Close the lid and press the bowl flat</h4><p>Snap the lid shut and press the bowl back down to seal. Walk-ready again in moments.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section class="specs">
+  <div class="specs-inner">
+    <div class="specs-img fade-in">
+      <img src="{{ 'inhanced_iamge_info_7.png' | asset_url }}" alt="HydroPaw product dimensions" />
+    </div>
+    <div class="fade-in">
+      <div class="section-label">Product Specs</div>
+      <h2 class="section-title">The Details</h2>
+      <p class="section-sub" style="margin-bottom:32px;">Precision-engineered to be the perfect size for any bag, pocket, or leash hook.</p>
+      <div class="specs-list">
+        <div class="spec-row"><div class="spec-name">⚖️ Weight</div><div class="spec-val">6 oz (170g)</div></div>
+        <div class="spec-row"><div class="spec-name">💧 Capacity</div><div class="spec-val">285ml / 9.6oz</div></div>
+        <div class="spec-row"><div class="spec-name">📏 Height</div><div class="spec-val">9 cm</div></div>
+        <div class="spec-row"><div class="spec-name">📐 Width</div><div class="spec-val">8.7 cm</div></div>
+        <div class="spec-row"><div class="spec-name">🧪 Material</div><div class="spec-val">Stainless Steel + BPA-Free Silicone</div></div>
+        <div class="spec-row"><div class="spec-name">🎨 Colors</div><div class="spec-val">Pink · Pink Print · Blue · Blue Print</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="reviews">
+  <div class="text-center">
+    <div class="section-label">Customer Reviews</div>
+    <h2 class="section-title">4,800+ Happy Pet Parents</h2>
+    <p class="section-sub">Don't take our word for it — here's what real dog owners are saying.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="review-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"I've tried so many dog water bottles and this one is genuinely the best. Fits in my jacket pocket, doesn't leak, and my corgi goes crazy for it. Bought two more as gifts!"</p>
+      <div class="reviewer"><div class="reviewer-avatar">S</div><div><div class="reviewer-name">Sarah M. <span class="verified">✓ Verified</span></div><div class="reviewer-sub">Corgi mom · Portland, OR</div></div></div>
+    </div>
+    <div class="review-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"The sphere shape is genius. I walk my two labs every morning and this thing just lives in my hand the whole time — barely notice it's there. Zero spills ever."</p>
+      <div class="reviewer"><div class="reviewer-avatar">J</div><div><div class="reviewer-name">Jake R. <span class="verified">✓ Verified</span></div><div class="reviewer-sub">Labrador dad · Austin, TX</div></div></div>
+    </div>
+    <div class="review-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Got the pink one for my chihuahua and it's adorable AND functional. She loves drinking from it. The pour-back feature is so smart — no wastage at all. 10/10."</p>
+      <div class="reviewer"><div class="reviewer-avatar">L</div><div><div class="reviewer-name">Lily K. <span class="verified">✓ Verified</span></div><div class="reviewer-sub">Chihuahua mom · Miami, FL</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BUY SECTION -->
+<section class="buy-section" id="buy">
+  <div class="section-label text-center">Limited Time Offer</div>
+  <h2 class="section-title text-center" style="color:white;">Get HydroPaw™ Today</h2>
+  <p class="section-sub text-center" style="color:#8896A8; margin-left:auto; margin-right:auto;">Join thousands of happy dog owners. Sale ends soon.</p>
+
+  <div class="buy-card fade-in">
+    <div class="buy-price-was">$34.99</div>
+    <div class="buy-price-now"><sup>$</sup>17.99</div>
+    <div class="buy-save">🔥 YOU SAVE $17 — 49% OFF</div>
+
+    <div class="buy-color-opts">
+      <label>Select Color</label>
+      <div class="buy-color-btns">
+        {%- if product != blank -%}
+          {%- for variant in product.variants -%}
+            <button class="buy-color-btn{% if forloop.first %} active{% endif %}" data-variant-id="{{ variant.id }}">{{ variant.title }}</button>
+          {%- endfor -%}
+        {%- else -%}
+          <button class="buy-color-btn active">Pink</button>
+          <button class="buy-color-btn">Pink Print</button>
+          <button class="buy-color-btn">Blue</button>
+          <button class="buy-color-btn">Blue Print</button>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <button class="buy-btn-cart">Add to Cart</button>
+    <button class="buy-btn-buy">Buy It Now — $17.99</button>
+
+    <div class="buy-payment">
+      <span class="pay-badge">VISA</span>
+      <span class="pay-badge">MASTERCARD</span>
+      <span class="pay-badge">PAYPAL</span>
+      <span class="pay-badge">APPLE PAY</span>
+      <span class="pay-badge">GOOGLE PAY</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="text-center">
+    <div class="section-label">Got Questions?</div>
+    <h2 class="section-title">Frequently Asked</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What size dogs is this suitable for?<span class="toggle">+</span></div><div class="faq-a">HydroPaw™ works great for small to medium breeds. The 285ml capacity is ideal for dogs up to 40lbs on a standard walk. For larger breeds or longer hikes, we recommend carrying two bottles.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is it dishwasher safe?<span class="toggle">+</span></div><div class="faq-a">Yes! Both the stainless steel body and the silicone sleeve are top-rack dishwasher safe. You can also hand wash with warm soapy water for a quick clean between walks.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Does it actually not leak in a bag?<span class="toggle">+</span></div><div class="faq-a">Absolutely. The precision-sealed lid locks shut and has been tested under pressure. You can toss it in any bag, upside down or sideways, and it won't leak a drop.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does shipping take?<span class="toggle">+</span></div><div class="faq-a">Standard shipping takes 7–14 business days. Expedited options are available at checkout. All orders come with full tracking so you know exactly where your bottle is.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is your return policy?<span class="toggle">+</span></div><div class="faq-a">We offer a 30-day no-questions-asked return policy. If you or your pup aren't satisfied, contact us and we'll sort out a full refund or replacement — whichever you prefer.</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo">HydroPaw<sup style="font-size:.5em;color:var(--blue)">™</sup></span>
+      <p>Keeping tails wagging and pups hydrated on every adventure since 2024.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="#buy">HydroPaw™ Bottle</a><a href="#buy">Pink Edition</a><a href="#buy">Blue Edition</a></div>
+    <div class="footer-col"><h4>Support</h4><a href="#">FAQ</a><a href="#">Shipping Info</a><a href="#">Returns</a><a href="#">Contact Us</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© {{ 'now' | date: '%Y' }} HydroPaw™. All rights reserved.</div>
+    <div class="footer-tagline">Made with love for dogs everywhere 🐾</div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Landing Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Product Handle",
+      "info": "Enter the handle of your Shopify product (found in the product URL)",
+      "default": "hydropaw-portable-dog-water-bottle"
+    }
+  ],
+  "presets": [{ "name": "Landing Page" }]
+}
+{% endschema %}
