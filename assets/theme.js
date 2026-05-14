@@ -143,3 +143,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initBuyNowButtons();
   initFadeIn();
 });
+
+// Splash intro fade-out
+window.addEventListener('load', () => {
+  const splash = document.getElementById('splash');
+  if (!splash) return;
+  setTimeout(() => {
+    splash.classList.add('fade-out');
+    setTimeout(() => { splash.style.display = 'none'; }, 900);
+  }, 1600);
+});
