@@ -7,36 +7,47 @@ function setHero(el, src) {
 
 // Resolve variant ID — 3-layer fallback
 async function resolveVariantId() {
-  // 1. Liquid-injected data (most reliable)
   if (window.__hp && window.__hp.variantId) return String(window.__hp.variantId);
-
-  // 2. Hidden input
   const input = document.querySelector('.variant-id-input');
   if (input && input.value) return input.value;
-
-  // 3. AJAX fetch from Shopify product API
   try {
     const handle = (window.__hp && window.__hp.handle) || 'hydropaw-portable-dog-water-bottle';
     const r = await fetch('/products/' + handle + '.js');
     const data = await r.json();
     if (data.variants && data.variants[0]) return String(data.variants[0].id);
   } catch(e) {}
-
   return null;
 }
 
-// Active variant ID tracker
+// Active variant + quantity trackers
 let activeVariantId = null;
+let activeQty = 1;
+
+// Sync all qty displays
+function syncQtyDisplays() {
+  document.querySelectorAll('.qty-val').forEach(v => v.textContent = activeQty);
+}
+
+// Quantity selectors
+function initQtySelectors() {
+  document.querySelectorAll('.qty-selector').forEach(sel => {
+    sel.querySelector('.qty-minus').addEventListener('click', () => {
+      if (activeQty > 1) { activeQty--; syncQtyDisplays(); }
+    });
+    sel.querySelector('.qty-plus').addEventListener('click', () => {
+      if (activeQty < 99) { activeQty++; syncQtyDisplays(); }
+    });
+  });
+}
+
 
 // Color / variant selection
 function initColorButtons() {
-  // Seed from Liquid data
   if (window.__hp && window.__hp.variantId) {
     activeVariantId = String(window.__hp.variantId);
     document.querySelectorAll('.variant-id-input').forEach(i => i.value = activeVariantId);
   }
 
-  // Seed variant IDs onto color buttons from __hp.variants
   if (window.__hp && window.__hp.variants && window.__hp.variants.length) {
     const variants = window.__hp.variants;
     document.querySelectorAll('.color-btn, .buy-color-btn').forEach(btn => {
@@ -75,45 +86,15 @@ function initColorButtons() {
   });
 }
 
-// Shopify AJAX add-to-cart
-function initCartButtons() {
-  document.querySelectorAll('.btn-cart, .buy-btn-cart').forEach(btn => {
-    btn.addEventListener('click', async function(e) {
-      e.preventDefault();
-      const variantId = activeVariantId || await resolveVariantId();
-      if (!variantId) { window.location.href = '/cart'; return; }
-      const original = this.textContent;
-      this.textContent = 'Adding...';
-      this.disabled = true;
-      try {
-        const r = await fetch('/cart/add.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ id: parseInt(variantId), quantity: 1 })
-        });
-        const data = await r.json();
-        if (data.id) {
-          window.location.href = '/cart';
-        } else {
-          this.textContent = original;
-          this.disabled = false;
-        }
-      } catch(e) {
-        this.textContent = original;
-        this.disabled = false;
-      }
-    });
-  });
-}
 
-// Buy Now — skip cart, go straight to checkout
+// Buy Now — skip cart, go straight to checkout with quantity
 function initBuyNowButtons() {
   document.querySelectorAll('.btn-buy, .buy-btn-buy').forEach(btn => {
     btn.addEventListener('click', async function(e) {
       e.preventDefault();
       const variantId = activeVariantId || await resolveVariantId();
       if (variantId) {
-        window.location.href = '/cart/' + variantId + ':1?checkout';
+        window.location.href = '/cart/' + variantId + ':' + activeQty + '?checkout';
       } else {
         window.location.href = '/checkout';
       }
@@ -139,7 +120,7 @@ function initFadeIn() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initColorButtons();
-  initCartButtons();
+  initQtySelectors();
   initBuyNowButtons();
   initFadeIn();
 });

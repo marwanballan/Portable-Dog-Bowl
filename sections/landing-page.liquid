@@ -73,8 +73,16 @@
 
     <input type="hidden" class="variant-id-input" value="{{ current_variant.id }}">
 
+    <div class="qty-row fade-in">
+      <span class="qty-label">Quantity</span>
+      <div class="qty-selector">
+        <button class="qty-btn qty-minus">−</button>
+        <span class="qty-val">1</span>
+        <button class="qty-btn qty-plus">+</button>
+      </div>
+    </div>
+
     <div class="btn-group fade-in">
-      <button class="btn-cart">Add to Cart</button>
       <button class="btn-buy">Buy It Now</button>
     </div>
 
@@ -276,7 +284,15 @@
       </div>
     </div>
 
-    <button class="buy-btn-cart">Add to Cart</button>
+    <div class="qty-row" style="justify-content:center; margin-bottom:18px;">
+      <span class="qty-label" style="color:#8896A8;">Quantity</span>
+      <div class="qty-selector">
+        <button class="qty-btn qty-minus">−</button>
+        <span class="qty-val">1</span>
+        <button class="qty-btn qty-plus">+</button>
+      </div>
+    </div>
+
     <button class="buy-btn-buy">Buy It Now — $32.99</button>
 
     <div class="buy-payment">
