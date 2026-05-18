@@ -53,20 +53,22 @@
       <label>Color — <strong>{{ product.variants.first.title | default: 'Pink' }}</strong></label>
       <div class="color-options">
         {%- if product != blank -%}
+          {%- assign first_shown = false -%}
           {%- for variant in product.variants -%}
-            {%- assign btn_class = 'color-btn' -%}
-            {%- if variant.title contains 'Blue' -%}{%- assign btn_class = 'color-btn blue-btn' -%}{%- else -%}{%- assign btn_class = 'color-btn pink-btn' -%}{%- endif -%}
-            <button class="{{ btn_class }}{% if forloop.first %} active{% endif %}"
-                    data-variant-id="{{ variant.id }}"
-                    data-variant-title="{{ variant.title }}">
-              {{ variant.title }}
-            </button>
+            {%- unless variant.title contains 'Print' -%}
+              {%- assign btn_class = 'color-btn' -%}
+              {%- if variant.title contains 'Blue' -%}{%- assign btn_class = 'color-btn blue-btn' -%}{%- else -%}{%- assign btn_class = 'color-btn pink-btn' -%}{%- endif -%}
+              <button class="{{ btn_class }}{% if first_shown == false %} active{% endif %}"
+                      data-variant-id="{{ variant.id }}"
+                      data-variant-title="{{ variant.title }}">
+                {{ variant.title }}
+              </button>
+              {%- assign first_shown = true -%}
+            {%- endunless -%}
           {%- endfor -%}
         {%- else -%}
           <button class="color-btn pink-btn active" data-variant-id="">Pink</button>
-          <button class="color-btn pink-btn" data-variant-id="">Pink Print</button>
           <button class="color-btn blue-btn" data-variant-id="">Blue</button>
-          <button class="color-btn blue-btn" data-variant-id="">Blue Print</button>
         {%- endif -%}
       </div>
     </div>
@@ -275,14 +277,16 @@
       <label>Select Color</label>
       <div class="buy-color-btns">
         {%- if product != blank -%}
+          {%- assign first_buy_shown = false -%}
           {%- for variant in product.variants -%}
-            <button class="buy-color-btn{% if forloop.first %} active{% endif %}" data-variant-id="{{ variant.id }}">{{ variant.title }}</button>
+            {%- unless variant.title contains 'Print' -%}
+              <button class="buy-color-btn{% if first_buy_shown == false %} active{% endif %}" data-variant-id="{{ variant.id }}">{{ variant.title }}</button>
+              {%- assign first_buy_shown = true -%}
+            {%- endunless -%}
           {%- endfor -%}
         {%- else -%}
           <button class="buy-color-btn active">Pink</button>
-          <button class="buy-color-btn">Pink Print</button>
           <button class="buy-color-btn">Blue</button>
-          <button class="buy-color-btn">Blue Print</button>
         {%- endif -%}
       </div>
     </div>
